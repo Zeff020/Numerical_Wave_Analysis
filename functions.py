@@ -35,12 +35,12 @@ class gaussian(function):
         self.xpos = xpos
         self.G    = self.Time * 0.
 
-    def returnfunction(self):
-        for it in range(self.TimeSteps): # Calculate Green's function (Heaviside function)
+    def returnfunction(self): # Method that calculates and returns the gaussian as an integral of the derivative of the Gaussian using a Green's function
+        for it in range(self.TimeSteps):
             if (self.Time[it] - np.abs(self.xpos[self.ir] - self.xpos[self.isrc]) / self.WaveSpeed) >= 0:
                 self.G[it] = 1. / (2 * self.WaveSpeed)
         Gc   = np.convolve(self.G, self.SourceFunc * self.dt)
         Gc   = Gc[0:self.TimeSteps]
-        lim  = Gc.max() # get limit value from the maximum amplitude
+        lim  = Gc.max() # get limit from maximum amplitude of function for plotting later on
 
         return Gc, lim

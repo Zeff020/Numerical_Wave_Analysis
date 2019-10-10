@@ -7,7 +7,7 @@ class pressure:
         self.PressureOld = np.zeros(xSteps) # P one previous timestep
         self.PressureNew = np.zeros(xSteps) # P in new timestep
         self.PressureSecDer = np.zeros(xSteps) # P second derivative
-        self.xSteps = xSteps
+        self.xSteps = xSteps 
         self.dx = dx
         self.dt = dt
         self.c = c
@@ -16,6 +16,6 @@ class pressure:
         for i in range(1, self.xSteps - 1):
             self.PressureSecDer[i] = (self.Pressure[i + 1] - 2 * self.Pressure[i] + self.Pressure[i - 1]) / self.dx ** 2
 
-    def timeextrapolation(self):
+    def timeextrapolation(self): # Time extrapolation scheme
         self.PressureNew = 2* self.Pressure - self.PressureOld + self.c ** 2 * self.dt ** 2 * self.PressureSecDer
 
